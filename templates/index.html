@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Query</title>
+</head>
+<body>
+    <h1>Query</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <p>Upload picture: <input type="file" name="query_image" ></p>
+        <p>Insert description for the query (selective, only use in pre-train model embedding): <input type="text" name="query_text"></p>
+        <p>Insert the α(0~1，only use in pre-train model embedding): <input type="text" name="lam" value="0.8"></p>
+        <p>
+            Choose the the model:
+            <input type="radio" name="method" value="pretrained" checked> pre-train embedding
+            <input type="radio" name="method" value="pca"> PCA
+        </p>
+        <input type="submit" value="检索">
+    </form>
+    {% if result_images %}
+    <h2>Result:</h2>
+    {% for img in result_images %}
+      <img src="{{ url_for('show_image', filename=img) }}" width="200" style="margin:5px;">
+    {% endfor %}
+    {% endif %}
+</body>
+</html>
